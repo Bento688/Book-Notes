@@ -1,0 +1,10 @@
+<h1>Hello!</h1>
+
+<% if (locals.books) { %>
+    <ul>
+        <% books.forEach(book => { %>
+            <h3><%= book.title %></h3>
+            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>">
+        <% }) %>
+    </ul>
+<% } %>
