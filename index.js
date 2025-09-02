@@ -29,10 +29,20 @@ const db = new pg.Client({
 db.connect();
 
 app.get("/", async (req, res) => {
-    const result = await db.query("SELECT title, description, isbn FROM books");
+    const result = await db.query("SELECT * FROM books ORDER BY id ASC");
     console.log(result.rows);
     res.render("index.ejs", {
         books: result.rows
+    });
+});
+
+app.get("/notes/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [id]);
+    const books = await db.query("SELECT isbn, title FROM books WHERE id = $1", [id]);
+    res.render("notes.ejs", {
+        notes : notes.rows,
+        books : books.rows
     });
 });
 

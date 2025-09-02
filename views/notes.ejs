@@ -1,0 +1,13 @@
+<%- include("partials/header.ejs") %>
+
+<img src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg" alt="<%= books.title %>">
+
+<% if (locals.notes) { %>
+    <ul>
+        <% notes.forEach(note => { %>
+            <p><%= note.notes %></p>  
+        <% }) %>
+    </ul>
+<% } %>
+
+<%- include("partials/footer.ejs") %>

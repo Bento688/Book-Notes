@@ -1,10 +1,18 @@
-<h1>Hello!</h1>
+<%- include("partials/header.ejs") %>
+
+<h1>Ben's Book Notes!</h1>
 
 <% if (locals.books) { %>
     <ul>
         <% books.forEach(book => { %>
-            <h3><%= book.title %></h3>
-            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>">
+            <h2><%= book.title %></h2>
+            <h3><%= book.description %></h3>
+            <p>Personal Rating : <%= book.personal_rating %></p>
+            <a href="/notes/<%= book.id %>">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="<%= book.title %>">
+            </a>    
         <% }) %>
     </ul>
 <% } %>
+
+<%- include("partials/footer.ejs") %>
