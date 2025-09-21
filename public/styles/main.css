@@ -1,0 +1,106 @@
+/* Universal Selectors */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #f9f2e9;
+  color: #1e1e1e;
+  font-family: "Zain", sans-serif;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 2rem;
+}
+
+/* Header */
+
+.header {
+  background-color: #c5b6a3;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__title {
+  padding: 0.5rem;
+  font-weight: 800;
+}
+
+.header__links {
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__links a {
+  color: inherit;
+  font-size: 1.75rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.header__links a:hover {
+  color: #f9f2e9;
+}
+
+/* Homepage Books Section */
+
+.books {
+  padding: 2rem;
+}
+
+.book {
+  display: flex;
+  gap: 2.5rem;
+  padding: 2rem;
+}
+
+.book-notes {
+  padding: 2rem;
+}
+
+.book-btn {
+  margin-top: 1.25rem;
+  font-size: 1.5rem;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 2rem;
+  background-color: #928677;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.book-btn:hover {
+  background-color: #c8c5c1;
+}
+
+/* Homepage intro */
+
+.intro {
+  background-color: #e8dfd3;
+  padding: 3.5rem;
+}
+
+.intro-greet {
+  font-size: 6rem;
+}

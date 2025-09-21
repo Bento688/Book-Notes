@@ -1,13 +1,18 @@
 <%- include("partials/header.ejs") %>
 
-<img src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg" alt="<%= books.title %>">
+<section class="book-notes">
+  <img
+    src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg"
+    alt="<%= books.title %>"
+  />
 
-<% if (locals.notes) { %>
-    <ul>
-        <% notes.forEach(note => { %>
-            <p><%= note.notes %></p>  
-        <% }) %>
-    </ul>
-<% } %>
+  <% if (locals.notes) { %>
+  <ul>
+    <% notes.forEach(note => { %>
+    <p><%= note.notes %></p>
+    <% }) %>
+  </ul>
+  <% } %>
+</section>
 
 <%- include("partials/footer.ejs") %>
