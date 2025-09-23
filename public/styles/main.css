@@ -32,7 +32,7 @@ p {
 
 .header {
   background-color: #c5b6a3;
-  padding: 2rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #1e1e1e;
@@ -49,6 +49,10 @@ p {
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
+}
+
+.header__links a:hover {
+  margin-bottom: 0.5rem;
 }
 
 .header__links a {
@@ -117,16 +121,28 @@ p {
   padding: 3.5rem 3.5rem 1.5rem 3.5rem;
 }
 
+.intro h1,
+.intro h2 {
+  font-family: "SUSE Mono", sans-serif;
+}
+
 .intro-greet {
   font-size: 6rem;
 }
 
 /* Per book notes section */
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .notes-book {
-  padding: 1rem;
+  width: 100%;
+  margin-left: 3rem;
+  padding: 1rem 1rem 1rem 5rem;
   display: flex;
-  gap: 2.5rem;
+  gap: 3.5rem;
 }
 
 .notes-book img {
@@ -136,5 +152,99 @@ p {
 }
 
 .notes-desc {
-  margin-top: 1.25rem;
+  margin-top: 2.75rem;
+}
+
+.notes-notes {
+  width: 70%;
+  padding: 1rem 3rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notes-notes ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.notes-title {
+  margin-bottom: 2rem;
+}
+
+/* Login Page */
+
+.login {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f2e9;
+}
+
+.login-form-container {
+  background-color: #ddd1c3;
+  border-radius: 1rem;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  gap: 0.5rem;
+  border: 1px solid #1e1e1e;
+}
+
+.login-form-container h2 {
+  font-size: 3.5rem;
+  color: #827c73;
+}
+
+.login-form-container p {
+  font-size: 1rem;
+  color: #827c73;
+}
+
+.login-button {
+  padding: 1rem;
+}
+
+.login-button-link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1rem 3rem;
+  background-color: #c5b6a3;
+  text-decoration: none;
+  color: #f9f2e9;
+  font-size: 1.5rem;
+  transition: 0.1s;
+}
+
+.login-button-link:hover {
+  transform: scale(1.05);
+}
+
+.login-button-link img {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #827c73;
+}
+
+/* Bar */
+
+.horizontal-bar {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.black-bar {
+  background-color: #1e1e1e;
+  border: 1px solid #1e1e1e;
+  width: 85vw;
 }

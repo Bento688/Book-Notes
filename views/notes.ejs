@@ -1,26 +1,37 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
 
-<section class="notes-book">
-  <img
-    src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-L.jpg"
-    alt="<%= books[0].title %>"
-  />
-  <div class="notes-desc">
-    <h2><%= books[0].title %></h2>
-    <h3><%= books[0].description %></h3>
-    <p>ISBN : <%= books[0].isbn %></p>
-    <p>Personal Rating : <%= books[0].personal_rating %></p>
+<div class="notes-container">
+  <section class="notes-book">
+    <img
+      src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg"
+      alt="<%= books[0].title %>"
+    />
+    <div class="notes-desc">
+      <h2><%= books[0].title %></h2>
+      <h3><%= books[0].description %></h3>
+      <p>ISBN : <%= books[0].isbn %></p>
+      <p>Personal Rating : <%= books[0].personal_rating %></p>
+    </div>
+  </section>
+
+  <div class="horizontal-bar">
+    <div class="black-bar"></div>
   </div>
-</section>
 
-<section class="notes-notes">
-  <% if (locals.notes) { %>
-  <ul>
-    <% notes.forEach(note => { %>
-    <p><%= note.notes %></p>
-    <% }) %>
-  </ul>
-  <% } %>
-</section>
+  <section class="notes-notes">
+    <% if (notes && notes.length > 0) { %>
+    <h2 class="notes-title">Notes</h2>
+
+    <% if (notes.length === 1 && notes[0].notes === "No notes here yet 😭") { %>
+    <p><%= notes[0].notes %></p>
+    <% } else { %>
+    <ul>
+      <% notes.forEach(note => { %>
+      <p>• <%= note.notes %></p>
+      <% }) %>
+    </ul>
+    <% } %> <% } %>
+  </section>
+</div>
 
 <%- include("partials/footer.ejs") %>
