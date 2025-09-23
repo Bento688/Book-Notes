@@ -1,11 +1,19 @@
 <%- include("partials/header.ejs") %>
 
-<section class="book-notes">
+<section class="notes-book">
   <img
-    src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg"
-    alt="<%= books.title %>"
+    src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-L.jpg"
+    alt="<%= books[0].title %>"
   />
+  <div class="notes-desc">
+    <h2><%= books[0].title %></h2>
+    <h3><%= books[0].description %></h3>
+    <p>ISBN : <%= books[0].isbn %></p>
+    <p>Personal Rating : <%= books[0].personal_rating %></p>
+  </div>
+</section>
 
+<section class="notes-notes">
   <% if (locals.notes) { %>
   <ul>
     <% notes.forEach(note => { %>

@@ -35,6 +35,7 @@ p {
   padding: 2rem;
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid #1e1e1e;
 }
 
 .header__title {
@@ -61,6 +62,12 @@ p {
   color: #f9f2e9;
 }
 
+.header .admin {
+  background-color: #928677;
+  padding: 0.05rem 1rem;
+  border-radius: 0.5rem;
+}
+
 /* Homepage Books Section */
 
 .books {
@@ -68,9 +75,13 @@ p {
 }
 
 .book {
+  background-color: #ddd1c3;
   display: flex;
   gap: 2.5rem;
   padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+  border: 2px solid #1e1e1e;
 }
 
 .book-notes {
@@ -78,7 +89,7 @@ p {
 }
 
 .book-btn {
-  margin-top: 1.25rem;
+  margin-top: 2rem;
   font-size: 1.5rem;
   display: inline-block;
   padding: 8px 16px;
@@ -91,16 +102,39 @@ p {
 }
 
 .book-btn:hover {
-  background-color: #c8c5c1;
+  background-color: #c5b6a3;
+}
+
+.book img {
+  border-radius: 1.25rem;
+  border: 1px solid #1e1e1e;
 }
 
 /* Homepage intro */
 
 .intro {
-  background-color: #e8dfd3;
-  padding: 3.5rem;
+  background-color: #f9f2e9;
+  padding: 3.5rem 3.5rem 1.5rem 3.5rem;
 }
 
 .intro-greet {
   font-size: 6rem;
+}
+
+/* Per book notes section */
+
+.notes-book {
+  padding: 1rem;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.notes-book img {
+  margin: 1rem 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid #1e1e1e;
+}
+
+.notes-desc {
+  margin-top: 1.25rem;
 }
