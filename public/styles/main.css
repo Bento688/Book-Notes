@@ -39,6 +39,9 @@ p {
 }
 
 .header__title {
+  text-decoration: none;
+  color: #1e1e1e;
+  font-size: 2.5rem;
   padding: 0.5rem;
   font-weight: 800;
 }
@@ -194,12 +197,12 @@ p {
   align-items: center;
   padding: 3rem 1rem;
   gap: 0.5rem;
-  border: 1px solid #1e1e1e;
+  border: 2px solid #1e1e1e;
 }
 
 .login-form-container h2 {
   font-size: 3.5rem;
-  color: #827c73;
+  color: #1e1e1e;
 }
 
 .login-form-container p {
