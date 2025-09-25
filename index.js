@@ -19,6 +19,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 3,
+    },
   })
 );
 
@@ -38,16 +41,32 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/notes/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [id]);
-  const books = await db.query("SELECT * FROM books WHERE id = $1", [id]);
-  // console.log(books.rows[0]);
-  // console.log(notes.rows);
-  res.render("notes.ejs", {
-    notes:
-      notes.rows.length > 0 ? notes.rows : [{ notes: "No notes here yet 😭" }],
-    books: books.rows,
-  });
+  if (req.isAuthenticated()) {
+    const id = parseInt(req.params.id);
+    const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [
+      id,
+    ]);
+    const books = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+    // console.log(books.rows[0]);
+    // console.log(notes.rows);
+    res.render("notes.ejs", {
+      notes:
+        notes.rows.length > 0
+          ? notes.rows
+          : [{ notes: "No notes here yet 😭" }],
+      books: books.rows,
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/admin", async (req, res) => {
+  if (req.user && req.user.email === process.env.ADMIN_EMAIL) {
+    res.render("admin.ejs"); // or render an admin page
+  } else {
+    res.redirect("/");
+  }
 });
 
 // Login routes
@@ -65,7 +84,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/notes/1",
+    successRedirect: "/",
     failureRedirect: "/",
   })
 );

@@ -1,0 +1,24 @@
+<%- include("partials/header.ejs") %>
+
+<section class="admin-page">
+  <div class="form-box">
+    <div class="form-container">
+      <h2>Create</h2>
+      <form action="/create" class="create-form" method="post">
+        <label for="bookname">Insert Book Name</label>
+        <input type="text" id="bookname" name="bookname" />
+        <label for="isbn">Insert Book ISBN</label>
+        <input type="text" name="isbn" id="isbn" />
+        <label for="desc">Insert Book Description</label>
+        <input type="text" id="desc" name="desc" />
+        <label for="rating">Insert Book Rating</label>
+        <input type="text" id="rating" name="rating" />
+        <label for="rating">Insert Image URL</label>
+        <input type="text" id="image" name="image" />
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer.ejs") %>
