@@ -4,7 +4,7 @@
   <div class="form-box">
     <div class="form-container">
       <h2>Create</h2>
-      <form action="/create" class="create-form" method="post">
+      <form action="/admin/create" class="create-form" method="post">
         <label for="bookname">Insert Book Name</label>
         <input type="text" id="bookname" name="bookname" />
         <label for="isbn">Insert Book ISBN</label>
@@ -27,6 +27,12 @@
         <button type="submit">Create</button>
       </form>
     </div>
+    <img
+      id="cover-preview"
+      src=""
+      alt="Book not found"
+      style="max-width: 150px; margin-top: 10px; display: none"
+    />
   </div>
 
   <div class="books-list">
@@ -44,19 +50,25 @@
           <div class="admin-books-flex-2">
             <!-- Edit button now opens modal instead of submitting form -->
             <button
+              class="dark-brown-button"
               type="button"
               onclick="openEditForm('<%= book.id %>', '<%= book.title %>', '<%= book.isbn %>', '<%= book.description %>', '<%= book.personal_rating %>')"
             >
               Edit
             </button>
             <form
-              action="/delete/<%= book.id %>"
+              action="/admin/delete/<%= book.id %>"
               method="post"
               style="display: inline"
             >
               <input type="hidden" name="id" value="<%= book.id %>" />
-              <button type="submit">Delete</button>
+              <button class="dark-brown-button" type="submit">Delete</button>
             </form>
+            <a
+              class="dark-brown-button"
+              href="/admin/books/<%= book.id %>/notes"
+              >View Notes</a
+            >
           </div>
         </div>
       </div>
@@ -69,7 +81,7 @@
   <div id="edit-overlay" class="overlay hidden">
     <div class="modal">
       <h2>Edit Book</h2>
-      <form action="/update" method="post">
+      <form action="/admin/update" method="post">
         <input type="hidden" id="edit-id" name="id" />
 
         <label for="edit-title">Title</label>
@@ -103,6 +115,19 @@
     function closeEditForm() {
       document.getElementById("edit-overlay").classList.add("hidden");
     }
+
+    const isbnInput = document.getElementById("isbn");
+    const coverPreview = document.getElementById("cover-preview");
+
+    isbnInput.addEventListener("input", () => {
+      const isbn = isbnInput.value.trim();
+      if (isbn) {
+        coverPreview.src = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`;
+        coverPreview.style.display = "block";
+      } else {
+        coverPreview.style.display = "none";
+      }
+    });
   </script>
 </section>
 

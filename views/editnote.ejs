@@ -1,0 +1,74 @@
+<%- include("partials/header.ejs") %>
+
+<section class="admin-notes-list">
+  <div class="admin-notes-flex">
+    <% if (locals.bookTitle) { %>
+    <div class="admin-notes-title">
+      <h2><%= bookTitle.title %></h2>
+    </div>
+    <div class="create-notes-form">
+      <form action="/admin/notes" method="post">
+        <input type="hidden" name="book_id" value="<%= bookTitle.id %>" />
+        <label for="newNote">Insert New Note</label>
+        <input type="text" id="newNote" name="content" />
+        <button class="dark-brown-button" type="submit">Submit</button>
+      </form>
+    </div>
+    <% } %> <% if (locals.notes) {%>
+    <ul>
+      <% notes.forEach( (note) => { %>
+      <div class="admin-note-container">
+        <p class="admin-note"><%= note.notes %></p>
+        <div class="admin-note-container-buttons">
+          <button
+            class="dark-brown-button"
+            onclick="openNoteEdit('<%= note.id %>', '<%= note.notes %>')"
+          >
+            Edit
+          </button>
+          <form
+            action="/admin/notes/delete/"
+            method="post"
+            style="display: inline"
+          >
+            <input type="hidden" name="id" value="<%= note.id %>" />
+            <input type="hidden" name="book_id" value="<%= bookTitle.id %>" />
+            <button class="dark-brown-button" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+    </ul>
+    <% } %>
+  </div>
+
+  <!-- Modal Edit Form (hidden by default) -->
+  <div id="edit-notes-overlay" class="overlay hidden">
+    <div class="modal">
+      <h2>Edit Note</h2>
+      <form action="/admin/notes/update" method="post">
+        <input type="hidden" id="edit-id" name="id" />
+
+        <label for="edit-note">Note</label>
+        <input type="text" id="edit-note" name="note" required />
+
+        <button type="submit">Save</button>
+        <button type="button" onclick="closeNoteForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openNoteEdit(id, note) {
+      document.getElementById("edit-notes-overlay").classList.remove("hidden");
+      document.getElementById("edit-id").value = id;
+      document.getElementById("edit-note").value = note;
+    }
+
+    function closeNoteForm() {
+      document.getElementById("edit-notes-overlay").classList.add("hidden");
+    }
+  </script>
+</section>
+
+<%- include("partials/footer.ejs") %>

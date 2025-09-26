@@ -36,7 +36,7 @@ app.use(express.json());
 app.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM books ORDER BY id ASC");
-    console.log(result.rows);
+    // console.log(result.rows);
     res.render("index.ejs", {
       books: result.rows,
     });
@@ -65,22 +65,6 @@ app.get("/notes/:id", async (req, res) => {
       });
     } else {
       res.redirect("/login");
-    }
-  } catch (error) {
-    console.log("error in fetching products:", error.message);
-    res.status(500).json({ success: false, message: "Server Error" });
-  }
-});
-
-app.get("/admin", async (req, res) => {
-  try {
-    if (req.user && req.user.email === process.env.ADMIN_EMAIL) {
-      const result = await db.query("SELECT * FROM books ORDER BY id ASC");
-      res.render("admin.ejs", {
-        books: result.rows,
-      }); // or render an admin page
-    } else {
-      res.redirect("/");
     }
   } catch (error) {
     console.log("error in fetching products:", error.message);
@@ -117,54 +101,148 @@ app.get("/logout", (req, res) => {
   });
 });
 
-// Admin Routes
-app.post("/create", async (req, res) => {
-  console.log(req.body);
-  const newBook = req.body;
+// *** Admin Routes (Book & Notes)
+app.get("/admin", async (req, res) => {
   try {
-    await db.query(
-      "INSERT INTO books (title, description, isbn, personal_rating) VALUES($1, $2, $3, $4)",
-      [newBook.bookname, newBook.desc, newBook.isbn, newBook.rating]
-    );
-    res.redirect("/admin");
+    if (req.user && req.user.email === process.env.ADMIN_EMAIL) {
+      const books = await db.query("SELECT * FROM books ORDER BY id ASC");
+      const notes = await db.query("SELECT * FROM notes ORDER BY book_id ASC");
+      console.log(notes.rows);
+      res.render("admin.ejs", {
+        books: books.rows,
+        notes: notes.rows,
+      }); // or render an admin page
+    } else {
+      res.redirect("/");
+    }
   } catch (error) {
-    console.error("Error in Create product:", error.message);
+    console.log("error in fetching products:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
 
-app.post("/update", async (req, res) => {
-  console.log(req.body);
-  const updatedValues = req.body;
-  try {
-    await db.query(
-      `UPDATE books
+// Book Edits
+app.post("/admin/create", async (req, res) => {
+  if (req.isAuthenticated()) {
+    // console.log(req.body);
+    const newBook = req.body;
+    try {
+      await db.query(
+        "INSERT INTO books (title, description, isbn, personal_rating) VALUES($1, $2, $3, $4)",
+        [newBook.bookname, newBook.desc, newBook.isbn, newBook.rating]
+      );
+      res.redirect("/admin");
+    } catch (error) {
+      console.error("Error in Create product:", error.message);
+      res.status(500).json({ success: false, message: "Server Error" });
+    }
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.post("/admin/update", async (req, res) => {
+  if (req.isAuthenticated()) {
+    // console.log(req.body);
+    const updatedValues = req.body;
+    try {
+      await db.query(
+        `UPDATE books
       SET title = $2, description = $3, isbn = $4, personal_rating = $5
       WHERE id = $1`,
-      [
-        updatedValues.id,
-        updatedValues.title,
-        updatedValues.desc,
-        updatedValues.isbn,
-        updatedValues.rating,
-      ]
-    );
-    res.redirect("/admin");
-  } catch (error) {
-    console.error("Error in Create product:", error.message);
-    res.status(500).json({ success: false, message: "Server Error" });
+        [
+          updatedValues.id,
+          updatedValues.title,
+          updatedValues.desc,
+          updatedValues.isbn,
+          updatedValues.rating,
+        ]
+      );
+      res.redirect("/admin");
+    } catch (error) {
+      console.error("Error in Create product:", error.message);
+      res.status(500).json({ success: false, message: "Server Error" });
+    }
   }
 });
 
-app.post("/delete/:id", async (req, res) => {
+app.post("/admin/delete/:id", async (req, res) => {
+  if (req.isAuthenticated()) {
+    // console.log(req.params.id);
+    const bookId = req.params.id;
+    try {
+      await db.query("DELETE FROM books WHERE id = $1", [bookId]);
+      res.redirect("/admin");
+    } catch (error) {
+      console.error("Error in Create product:", error.message);
+      res.status(500).json({ success: false, message: "Server Error" });
+    }
+  }
+});
+
+// Notes Edits
+app.get("/admin/books/:id/notes", async (req, res) => {
   // console.log(req.params.id);
-  const bookId = req.params.id;
+  const { id } = req.params;
   try {
-    await db.query("DELETE FROM books WHERE id = $1", [bookId]);
+    const bookTitle = await db.query(
+      "SELECT title, id FROM books WHERE id = $1",
+      [id]
+    );
+    const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [
+      id,
+    ]);
+    console.log(notes.rows);
+    console.log(bookTitle.rows);
+    res.render("editnote.ejs", {
+      notes: notes.rows,
+      bookTitle: bookTitle.rows[0],
+    });
+  } catch (error) {
+    console.log("error in fetching products:", error.message);
+    res.status(500).json({ success: false, message: "Error Fetching Notes" });
+  }
+});
+
+// Create a Note
+app.post("/admin/notes", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { book_id, content } = req.body;
+    await db.query("INSERT INTO notes (notes, book_id) VALUES ($1, $2)", [
+      content,
+      book_id,
+    ]);
+    res.redirect(`/admin/books/${book_id}/notes`);
+  } catch (error) {
+    console.log("error in fetching products:", error.message);
+    res.status(500).json({ success: false, message: "Error Creating Notes" });
+  }
+});
+
+// Update a Note
+app.post("/admin/notes/update", async (req, res) => {
+  try {
+    const { id, note } = req.body;
+    // console.log(id, note);
+    await db.query("UPDATE notes SET notes = $1 WHERE id = $2", [note, id]);
     res.redirect("/admin");
   } catch (error) {
-    console.error("Error in Create product:", error.message);
-    res.status(500).json({ success: false, message: "Server Error" });
+    console.log("error in fetching products:", error.message);
+    res.status(500).json({ success: false, message: "Error Updating Notes" });
+  }
+});
+
+// Delete a Note
+app.post("/admin/notes/delete", async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { book_id, id } = req.body;
+    await db.query("DELETE FROM notes WHERE id = $1", [id]);
+    res.redirect(`/admin/books/${book_id}/notes`);
+  } catch (error) {
+    console.log("error in deleting note:", error.message);
+    res.status(500).json({ success: false, message: "Error Deleting Notes" });
   }
 });
 
@@ -179,7 +257,7 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, cb) => {
-      console.log(profile);
+      // console.log(profile);
       try {
         const email =
           profile.emails && profile.emails.length > 0
