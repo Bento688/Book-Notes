@@ -1,4 +1,4 @@
---Create tables
+-- CREATE TABLES
 
 CREATE TABLE books (
 	id SERIAL PRIMARY KEY,
@@ -22,11 +22,25 @@ CREATE TABLE users (
   password TEXT NOT NULL
 );
 
+-- INSERT BOOKS / NOTES INTO DB
+
 INSERT INTO books (title, description, isbn, personal_rating)
 VALUES('<Title>', '<Description>', <ISBN>, <Personal Rating>)
 
 INSERT INTO notes(notes, book_id)
 VALUES ('<Note>', <ID>)
+
+DELETE FROM books
+WHERE id = <ID>
+
+-- UPDATE DB (EDIT DATA)
+
+UPDATE books
+SET title = $2,
+	description = $3,
+	isbn = $4,
+	personal_rating = $5,
+WHERE id = $1
 
 -- Covers search
 -- https://covers.openlibrary.org/b/isbn/<isbn>-M.jpg?default=false
