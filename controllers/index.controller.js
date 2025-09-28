@@ -1,0 +1,40 @@
+import db from "../config/db.js";
+
+export const getHome = async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM books ORDER BY id ASC");
+    // console.log(result.rows);
+    res.render("index.ejs", {
+      books: result.rows,
+    });
+  } catch (error) {
+    console.log("error in fetching products:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const getNotes = async (req, res) => {
+  try {
+    if (req.isAuthenticated()) {
+      const id = parseInt(req.params.id);
+      const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [
+        id,
+      ]);
+      const books = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+      // console.log(books.rows[0]);
+      // console.log(notes.rows);
+      res.render("notes.ejs", {
+        notes:
+          notes.rows.length > 0
+            ? notes.rows
+            : [{ notes: "No notes here yet 😭" }],
+        books: books.rows,
+      });
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.log("error in fetching products:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
