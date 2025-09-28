@@ -3,6 +3,15 @@
   <div class="header__links">
     <a href="#" class="linkedin">Linkedin</a>
     <a href="#" class="github">Github</a>
-    <a href="/auth/login" class="admin">Sign In</a>
+    <% if (locals.user) { %>
+    <a href="/auth/logout" class="sign-in-button">Log Out</a>
+    <img
+      src="<%= locals.user.image_url %>"
+      alt="profile picture"
+      class="header-profpic"
+    />
+    <% } else { %>
+    <a href="/auth/login" class="sign-in-button">Sign In</a>
+    <% } %>
   </div>
 </section>

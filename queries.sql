@@ -19,7 +19,8 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email VARCHAR(255) UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  image_url TEXT default 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
 );
 
 -- INSERT BOOKS / NOTES INTO DB

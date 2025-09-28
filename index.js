@@ -15,18 +15,16 @@ import adminRoutes from "./routes/admin.route.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Initialize express-session
-app.use(sessionConfig);
-
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
 
-// Initialize & Configure Passport
+// Initialize & Configure Passport and express-session
+app.use(sessionConfig);
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Make sure it integrates express session
-configurePassport();
+configurePassport(); // Configure passport
 
 // Routes
 app.use("/", indexRoutes);

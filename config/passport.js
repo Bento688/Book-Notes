@@ -17,11 +17,16 @@ export default function configurePassport() {
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
       },
       async (accessToken, refreshToken, profile, cb) => {
-        // console.log(profile);
+        console.log(profile);
         try {
           const email =
             profile.emails && profile.emails.length > 0
               ? profile.emails[0].value
+              : null;
+
+          const profilePicture =
+            profile.photos && profile.photos.length > 0
+              ? profile.photos[0].value
               : null;
 
           if (!email) {
@@ -33,8 +38,8 @@ export default function configurePassport() {
           );
           if (result.rows.length == 0) {
             const newUser = await db.query(
-              "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
-              [email, "google"]
+              "INSERT INTO users (email, password, image_url) VALUES ($1, $2, $3) RETURNING *",
+              [email, "google", profilePicture]
             );
             cb(null, newUser.rows[0]);
           } else {

@@ -69,7 +69,13 @@ p {
   color: #f9f2e9;
 }
 
-.header .admin {
+.header__links img {
+  max-width: 3rem;
+  max-height: 3rem;
+  border-radius: 50%;
+}
+
+.header .sign-in-button {
   background-color: #928677;
   padding: 0.05rem 1rem;
   border-radius: 0.5rem;

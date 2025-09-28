@@ -2,10 +2,14 @@ import db from "../config/db.js";
 
 export const getHome = async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM books ORDER BY id ASC");
+    const result = await db.query(
+      "SELECT * FROM books ORDER BY personal_rating DESC"
+    );
     // console.log(result.rows);
+    // req.user ? console.log(req.user) : null;
     res.render("index.ejs", {
       books: result.rows,
+      user: req.user ? req.user : false,
     });
   } catch (error) {
     console.log("error in fetching products:", error.message);
@@ -29,9 +33,10 @@ export const getNotes = async (req, res) => {
             ? notes.rows
             : [{ notes: "No notes here yet 😭" }],
         books: books.rows,
+        user: req.user ? req.user : false,
       });
     } else {
-      res.redirect("/login");
+      res.redirect("/auth/login");
     }
   } catch (error) {
     console.log("error in fetching products:", error.message);
