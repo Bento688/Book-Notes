@@ -2,11 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
-import bodyParser from "body-parser";
-
 import passport from "passport";
+
 import configurePassport from "./config/passport.js";
-import session from "express-session";
+import sessionConfig from "./config/session.js";
 
 import indexRoutes from "./routes/index.route.js";
 import loginRoutes from "./routes/login.route.js";
@@ -14,22 +13,13 @@ import adminRoutes from "./routes/admin.route.js";
 
 // Initialize express
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // Initialize express-session
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 3,
-    },
-  })
-);
+app.use(sessionConfig);
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
 
@@ -40,7 +30,7 @@ configurePassport();
 
 // Routes
 app.use("/", indexRoutes);
-app.use("/", loginRoutes);
+app.use("/auth", loginRoutes);
 app.use("/admin", adminRoutes);
 
 app.listen(port, () => {

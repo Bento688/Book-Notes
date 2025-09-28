@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import db from "../config/db.js";
 
 export const adminPage = async (req, res) => {

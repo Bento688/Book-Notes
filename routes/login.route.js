@@ -11,9 +11,9 @@ const router = express.Router();
 // Login routes
 router.get("/login", userLogin);
 
-router.get("/auth/google", googleLogin);
+router.get("/google", googleLogin);
 
-router.get("/auth/google/callback", googleCallBack);
+router.get("/google/callback", googleCallBack);
 
 router.get("/logout", userLogout);
 
