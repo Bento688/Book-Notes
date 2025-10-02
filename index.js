@@ -10,6 +10,7 @@ import sessionConfig from "./config/session.js";
 import indexRoutes from "./routes/index.route.js";
 import loginRoutes from "./routes/login.route.js";
 import adminRoutes from "./routes/admin.route.js";
+import commentRoutes from "./routes/comment.route.js";
 
 // Initialize express
 const app = express();
@@ -30,6 +31,7 @@ configurePassport(); // Configure passport
 app.use("/", indexRoutes);
 app.use("/auth", loginRoutes);
 app.use("/admin", adminRoutes);
+app.use("/comment", commentRoutes);
 
 app.listen(port, () => {
   console.log(`App started at port: ${port}`);

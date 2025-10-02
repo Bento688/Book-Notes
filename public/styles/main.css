@@ -183,6 +183,80 @@ p {
   margin-bottom: 2rem;
 }
 
+.notes-comments {
+  padding: 4rem;
+  min-width: 40%;
+}
+
+.notes-comments-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-comments-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notes-comments-form textarea {
+  resize: none;
+  height: 5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.notes-comments-form button {
+  display: flex;
+  justify-content: center;
+  max-width: 25%;
+}
+
+.notes-comments-form label {
+  font-size: 2rem;
+}
+
+.notes-form-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.notes-comments-show {
+  display: flex;
+  padding: 1rem;
+}
+
+.notes-comments-show-container {
+  display: flex;
+}
+
+.notes-comments-show-container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notes-comments-show-comment {
+  padding: 1.25rem;
+  border-radius: 6px;
+  border: 1px solid #1e1e1e;
+  background-color: #f9f6f4;
+}
+
+.notes-comments-show-comment-imgname {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.notes-comments-show-comment-imgname img {
+  border-radius: 50%;
+  height: 2.25rem;
+  width: 2.25rem;
+  border: 1px solid #1e1e1e;
+}
+
 /* Login Page */
 
 .login {

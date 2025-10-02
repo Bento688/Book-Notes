@@ -19,7 +19,7 @@
   </div>
 
   <section class="notes-notes">
-    <% if (notes && notes.length > 0) { %>
+    <% if (locals.notes && notes.length > 0) { %>
     <h2 class="notes-title">Notes</h2>
 
     <% if (notes.length === 1 && notes[0].notes === "No notes here yet 😭") { %>
@@ -31,6 +31,46 @@
       <% }) %>
     </ul>
     <% } %> <% } %>
+  </section>
+
+  <section class="notes-comments">
+    <div class="notes-comments-form-container">
+      <form action="/comment" class="notes-comments-form" method="post">
+        <input type="hidden" name="book_id" value="<%= books[0].id %>" />
+        <input type="hidden" name="user_id" value="<%= user.id %>" />
+        <label for="comment">Comments</label>
+        <textarea
+          name="comment"
+          id="comment"
+          placeholder="Insert your comment here!"
+        ></textarea>
+        <div class="notes-form-button">
+          <button class="dark-brown-button" type="submit">Post!</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="notes-comments-show">
+    <div class="notes-comments-show-container">
+      <% if (locals.comments && comments.length > 0) { %>
+        <% if (comments.length === 1 && comments[0].comment === "No comments yet! be the first to comment!") { %>
+          <p><%= comments[0].comment %></p>
+          <% } else { %>
+             <ul>
+              <% comments.forEach(comment => { %>
+                <div class="notes-comments-show-comment">
+                  <div class="notes-comments-show-comment-imgname">
+                    <img src="<%= comment.image_url %>" alt="<%= comment.fname %> <%= comment.lname %>'s Profile Picture">
+                    <p><%= comment.fname %> <%= comment.lname %></p>
+                  </div>
+                  <p><%= comment.comment %></p>
+                </div>
+              <% }) %>
+            </ul>
+          <% } %>
+      <% } %>
+    </div>
   </section>
 </div>
 
