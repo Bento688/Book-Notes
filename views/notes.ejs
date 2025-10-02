@@ -65,6 +65,13 @@
                     <p><%= comment.fname %> <%= comment.lname %></p>
                   </div>
                   <p><%= comment.comment %></p>
+                  <% if (comment.user_id === user.id) { %>
+                    <form action="/comment/delete" class="comment-buttons" method="post">
+                      <input type="hidden" value="<%= comment.comment_id %>" name="comment_id">
+                      <input type="hidden" value="<%= books[0].id %>" name="book_id">
+                      <button class="dark-brown-button" type="submit">Delete</button>
+                    </form>
+                  <% } %>
                 </div>
               <% }) %>
             </ul>
