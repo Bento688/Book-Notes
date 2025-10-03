@@ -1,6 +1,9 @@
 <%- include("partials/header.ejs") %>
 
 <section class="admin-notes-list">
+  <div class="back-button-container">
+    <a href="/admin" class="back-button">&larr; Back to Admin</a>
+  </div>
   <div class="admin-notes-flex">
     <% if (locals.bookTitle) { %>
     <div class="admin-notes-title">

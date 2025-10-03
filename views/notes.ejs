@@ -1,6 +1,9 @@
 <%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
 
 <div class="notes-container">
+  <div class="back-button-container">
+    <a href="/" class="back-button">&larr; Back to Home</a>
+  </div>
   <section class="notes-book">
     <img
       src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg"
@@ -27,11 +30,15 @@
     <% } else { %>
     <ul>
       <% notes.forEach(note => { %>
-      <p>• <%= note.notes %></p>
+      <li>• <%= note.notes %></li>
       <% }) %>
     </ul>
     <% } %> <% } %>
   </section>
+
+   <div class="horizontal-bar">
+    <div class="black-bar"></div>
+  </div>
 
   <section class="notes-comments">
     <div class="notes-comments-form-container">

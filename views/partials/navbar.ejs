@@ -1,6 +1,23 @@
 <section class="header">
   <a class="header__title" href="/admin">Ben's Book Notes!</a>
-  <div class="header__links">
+  <!-- Hamburger Icon (only visible on mobile) -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M3 6h18M3 12h18M3 18h18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+  <div class="header__links" id="nav-links">
     <a
       href="https://www.linkedin.com/in/benedict-estefan-halkin-074072239"
       target="_blank"
@@ -21,4 +38,12 @@
     <a href="/auth/login" class="sign-in-button">Sign In</a>
     <% } %>
   </div>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("nav-links");
+
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+  </script>
 </section>
