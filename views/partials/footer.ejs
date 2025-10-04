@@ -1,2 +1,44 @@
+<section class="footer">
+  <div class="footer-flex-container">
+    <div class="footer-cr">
+      <h3 id="footer-year"></h3>
+      <p>
+        All book covers are provided by
+        <a
+          class="footer-links"
+          href="https://openlibrary.org/dev/docs/api/covers"
+          target="_blank"
+          >Open Library</a
+        >
+      </p>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>email : benedictestefanhalkin@gmail.com</p>
+      <div class="footer-contact-links">
+        <a
+          class="footer-links"
+          href="https://github.com/Bento688"
+          target="_blank"
+          >Github</a
+        >
+        <a
+          class="footer-links"
+          href="https://www.linkedin.com/in/benedict-estefan-halkin-074072239"
+          target="_blank"
+          >Linkedin</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById(
+      "footer-year"
+    ).innerHTML = `© ${year} Benedict Estefan Halkin`;
+  </script>
+</section>
+
 </body>
 </html>

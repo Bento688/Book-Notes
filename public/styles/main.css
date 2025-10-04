@@ -119,6 +119,68 @@ p {
   }
 }
 
+/* Footer */
+
+.footer {
+  padding: 1rem 2.2rem;
+  background-color: #c5b6a3;
+  border-top: 2px solid #1e1e1e;
+}
+
+.footer-flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#footer-year {
+  font-size: 1.3rem;
+}
+
+.footer-cr {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-cr p {
+  font-size: 1rem;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-contact h3 {
+  font-size: 1.4rem;
+}
+
+.footer-contact p {
+  font-size: 1.2rem;
+}
+
+.footer-contact-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-links {
+  all: unset;
+  transition: 0.2s;
+}
+
+.footer-links:hover {
+  transform: scale(1.05);
+  color: #f9f2e9;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .footer-flex-container {
+    flex-wrap: wrap;
+  }
+}
+
 /* Homepage Books Section */
 
 .books {
