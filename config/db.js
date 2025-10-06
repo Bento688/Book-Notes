@@ -2,20 +2,31 @@ import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 
-//Connect DB
-const dbPw = process.env.DB_PASSWORD;
-const dbDb = process.env.DB;
-const dbUser = process.env.DB_USER;
-const dbPort = process.env.DB_PORT;
-const dbHost = process.env.DB_HOST;
+const { Pool } = pg;
 
-const db = new pg.Client({
-  user: dbUser,
-  host: dbHost,
-  database: dbDb,
-  password: dbPw,
-  port: parseInt(dbPort),
-});
-db.connect();
+const isProduction = process.env.NODE_ENV === "production";
+
+const connectionString = process.env.DATABASE_URL;
+
+//Connect DB
+
+const db = new Pool(
+  isProduction
+    ? {
+        connectionString,
+        ssl: { rejectUnauthorized: false },
+      }
+    : {
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB,
+        password: process.env.DB_PASSWORD,
+        port: parseInt(process.env.DB_PORT),
+      }
+);
+
+db.connect()
+  .then(() => console.log("✅ Connected to database"))
+  .catch((err) => console.error("❌ Database connection error:", err.stack));
 
 export default db;

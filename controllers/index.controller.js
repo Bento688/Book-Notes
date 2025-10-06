@@ -6,7 +6,7 @@ export const getHome = async (req, res) => {
       "SELECT * FROM books ORDER BY personal_rating DESC"
     );
     // console.log(result.rows);
-    // req.user ? console.log(req.user) : null;
+    req.user ? console.log(req.user) : null;
     res.render("index.ejs", {
       books: result.rows,
       user: req.user ? req.user : false,

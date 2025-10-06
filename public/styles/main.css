@@ -69,9 +69,10 @@ p {
 }
 
 .header__links img {
-  max-width: 2.75rem;
-  max-height: 2.75rem;
+  max-width: 2.4rem;
+  max-height: 2.4rem;
   border-radius: 50%;
+  border: 1px solid #1e1e1e;
 }
 
 .header .sign-in-button {
@@ -167,6 +168,7 @@ p {
 .footer-links {
   all: unset;
   transition: 0.2s;
+  color: #797065;
 }
 
 .footer-links:hover {
