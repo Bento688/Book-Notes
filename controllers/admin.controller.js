@@ -93,7 +93,7 @@ export const editNotePage = async (req, res) => {
         [id]
       );
       const notes = await db.query(
-        "SELECT * FROM notes WHERE book_id = $1 ORDER BY id ASC",
+        "SELECT * FROM notes WHERE book_id = $1 ORDER BY display_order ASC",
         [id]
       );
       // console.log(notes.rows);
@@ -116,10 +116,10 @@ export const createNote = async (req, res) => {
     try {
       // console.log(req.body);
       const { book_id, content } = req.body;
-      await db.query("INSERT INTO notes (notes, book_id) VALUES ($1, $2)", [
-        content,
-        book_id,
-      ]);
+      await db.query(
+        "INSERT INTO notes (notes, book_id, display_order) SELECT $1, $2, COALESCE(MAX(display_order), 0) + 1 FROM notes WHERE book_id = $2 RETURNING *",
+        [content, book_id]
+      );
       res.redirect(`/admin/books/${book_id}/notes`);
     } catch (error) {
       console.log("error in fetching products:", error.message);

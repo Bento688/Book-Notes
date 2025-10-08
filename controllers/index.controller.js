@@ -24,7 +24,7 @@ export const getNotes = async (req, res) => {
     // console.log(req.user); //debug log
     const id = parseInt(req.params.id);
     const notes = await db.query(
-      "SELECT * FROM notes WHERE book_id = $1 ORDER BY id ASC",
+      "SELECT * FROM notes WHERE book_id = $1 ORDER BY display_order ASC",
       [id]
     );
     const books = await db.query("SELECT * FROM books WHERE id = $1", [id]);
