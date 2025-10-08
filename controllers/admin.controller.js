@@ -92,9 +92,10 @@ export const editNotePage = async (req, res) => {
         "SELECT title, id FROM books WHERE id = $1",
         [id]
       );
-      const notes = await db.query("SELECT * FROM notes WHERE book_id = $1", [
-        id,
-      ]);
+      const notes = await db.query(
+        "SELECT * FROM notes WHERE book_id = $1 ORDER BY id ASC",
+        [id]
+      );
       // console.log(notes.rows);
       // console.log(bookTitle.rows);
       res.render("editnote.ejs", {
