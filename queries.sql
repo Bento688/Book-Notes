@@ -55,5 +55,16 @@ SET title = $2,
 	personal_rating = $5,
 WHERE id = $1
 
+
+UPDATE notes
+SET display_order = display_order + 1
+WHERE book_id = <target-book-id> AND display_order >= <starting-display-order-to-shift-up>;
+
+INSERT INTO notes (notes, book_id, display_order)
+VALUES ($1, $2, $3)
+RETURNING *;
+
+
+
 -- Covers search
 -- https://covers.openlibrary.org/b/isbn/<isbn>-M.jpg?default=false
