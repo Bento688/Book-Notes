@@ -135,7 +135,7 @@ export const updateNote = async (req, res) => {
       const { id, note } = req.body;
       // console.log(id, note);
       await db.query("UPDATE notes SET notes = $1 WHERE id = $2", [note, id]);
-      res.redirect("/admin");
+      res.redirect(`/admin/books/${id}/notes`);
     } catch (error) {
       console.log("error in fetching products:", error.message);
       res.status(500).json({ success: false, message: "Error Updating Notes" });
