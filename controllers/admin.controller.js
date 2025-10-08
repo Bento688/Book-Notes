@@ -132,10 +132,10 @@ export const createNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      const { id, note } = req.body;
+      const { id, note, book_id } = req.body;
       // console.log(id, note);
       await db.query("UPDATE notes SET notes = $1 WHERE id = $2", [note, id]);
-      res.redirect(`/admin/books/${id}/notes`);
+      res.redirect(`/admin/books/${book_id}/notes`);
     } catch (error) {
       console.log("error in fetching products:", error.message);
       res.status(500).json({ success: false, message: "Error Updating Notes" });

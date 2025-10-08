@@ -25,7 +25,7 @@
         <div class="admin-note-container-buttons">
           <button
             class="dark-brown-button"
-            onclick="openNoteEdit('<%= note.id %>', '<%= note.notes %>')"
+            onclick="openNoteEdit('<%= note.id %>', '<%= note.notes %>', '<%= note.book_id %>')"
           >
             Edit
           </button>
@@ -52,6 +52,8 @@
       <form action="/admin/notes/update" method="post">
         <input type="hidden" id="edit-id" name="id" />
 
+        <input type="hidden" id="edit-book-id" name="book_id" />
+
         <label for="edit-note">Note</label>
         <input type="text" id="edit-note" name="note" required />
 
@@ -62,8 +64,9 @@
   </div>
 
   <script>
-    function openNoteEdit(id, note) {
+    function openNoteEdit(id, note, book_id) {
       document.getElementById("edit-notes-overlay").classList.remove("hidden");
+      document.getElementById("edit-book-id").value = book_id;
       document.getElementById("edit-id").value = id;
       document.getElementById("edit-note").value = note;
     }
