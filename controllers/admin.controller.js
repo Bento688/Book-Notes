@@ -53,7 +53,7 @@ export const updateBook = async (req, res) => {
     try {
       await db.query(
         `UPDATE books
-      SET title = $2, description = $3, isbn = $4, personal_rating = $5
+      SET title = $2, description = $3, isbn = $4, personal_rating = $5, author_name = $6
       WHERE id = $1`,
         [
           updatedValues.id,
