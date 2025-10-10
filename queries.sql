@@ -5,7 +5,8 @@ CREATE TABLE books (
 	title VARCHAR(100),
 	description TEXT,
 	isbn VARCHAR(20),
-	personal_rating DECIMAL(3,1)
+	personal_rating DECIMAL(3,1),
+	author VARCHAR(100)
 );
 
 CREATE TABLE notes (

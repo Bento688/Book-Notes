@@ -18,6 +18,8 @@
         </p>
         <label for="desc">Insert Book Description</label>
         <input type="text" id="desc" name="desc" />
+        <label for="author">Insert Book Description</label>
+        <input type="text" id="author" name="authorName" />
         <label for="rating">Insert Book Rating</label>
         <input
           type="number"
@@ -55,7 +57,7 @@
             <button
               class="dark-brown-button"
               type="button"
-              onclick="openEditForm('<%= book.id %>', '<%= book.title %>', '<%= book.isbn %>', '<%= book.description %>', '<%= book.personal_rating %>')"
+              onclick="openEditForm('<%= book.id %>', '<%= book.title %>', '<%= book.isbn %>', '<%= book.description %>', '<%= book.personal_rating %>', '<%= book.author_name %>')"
             >
               Edit
             </button>
@@ -99,6 +101,9 @@
         <label for="edit-rating">Rating</label>
         <input type="text" id="edit-rating" name="rating" required />
 
+        <label for="edit-author">Author</label>
+        <input type="text" id="edit-author" name="authorName" required />
+
         <button type="submit">Save</button>
         <button type="button" onclick="closeEditForm()">Cancel</button>
       </form>
@@ -106,13 +111,14 @@
   </div>
 
   <script>
-    function openEditForm(id, title, isbn, desc, rating) {
+    function openEditForm(id, title, isbn, desc, rating, author) {
       document.getElementById("edit-overlay").classList.remove("hidden");
       document.getElementById("edit-id").value = id;
       document.getElementById("edit-title").value = title;
       document.getElementById("edit-isbn").value = isbn;
       document.getElementById("edit-desc").value = desc;
       document.getElementById("edit-rating").value = rating;
+      document.getElementById("edit-author").value = author;
     }
 
     function closeEditForm() {

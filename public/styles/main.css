@@ -10,6 +10,7 @@ html {
   background-color: #f9f2e9;
   color: #1e1e1e;
   font-family: "Zain", sans-serif;
+  font-weight: 400;
 }
 
 h1 {
@@ -89,6 +90,12 @@ p {
   border: none;
   cursor: pointer;
   color: #1e1e1e;
+}
+
+.navbar-icon {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {
@@ -213,6 +220,10 @@ p {
   min-width: 200px;
 }
 
+.book-desc h3 {
+  font-size: 1.7rem;
+}
+
 .book-btn {
   margin-top: 1rem;
   font-size: 1.2rem;
@@ -256,7 +267,7 @@ p {
 
 .intro h1,
 .intro h2 {
-  font-family: "SUSE Mono", sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.2;
 }
 
@@ -271,6 +282,7 @@ p {
 
 .intro-desc {
   font-size: clamp(1rem, 2.5vw, 2rem);
+  font-weight: 500;
   max-width: 60ch; /* keeps text comfortably readable */
   margin: 1rem auto 0 auto; /* centers block on page */
   color: #333; /* softer contrast for body text */

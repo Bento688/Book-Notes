@@ -24,8 +24,9 @@
       </a>
       <div class="book-desc">
         <h2><%= book.title %></h2>
+        <p>📝 Author : <%= book.author_name %></p>
         <h3><%= book.description %></h3>
-        <p>Personal Rating : <%= book.personal_rating %></p>
+        <p>📚 Personal Rating : <%= book.personal_rating %></p>
         <a href="/notes/<%= book.id %>" class="book-btn">View Notes</a>
       </div>
     </div>

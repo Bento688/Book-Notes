@@ -27,8 +27,14 @@ export const createBook = async (req, res) => {
     const newBook = req.body;
     try {
       await db.query(
-        "INSERT INTO books (title, description, isbn, personal_rating) VALUES($1, $2, $3, $4)",
-        [newBook.bookname, newBook.desc, newBook.isbn, newBook.rating]
+        "INSERT INTO books (title, description, isbn, personal_rating, author_name) VALUES($1, $2, $3, $4, $5)",
+        [
+          newBook.bookname,
+          newBook.desc,
+          newBook.isbn,
+          newBook.rating,
+          newBook.authorName,
+        ]
       );
       res.redirect("/admin");
     } catch (error) {
@@ -55,6 +61,7 @@ export const updateBook = async (req, res) => {
           updatedValues.desc,
           updatedValues.isbn,
           updatedValues.rating,
+          updatedValues.authorName,
         ]
       );
       res.redirect("/admin");
