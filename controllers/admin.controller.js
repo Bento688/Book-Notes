@@ -2,16 +2,26 @@ import dotenv from "dotenv";
 dotenv.config();
 import db from "../config/db.js";
 
+// --- Helper: Check Authorization ---
+const isAuthorized = (req) => {
+  if (!req.isAuthenticated()) return false; // Must be logged in
+
+  const isDev = process.env.NODE_ENV === "development";
+  const isAdmin = req.user.email === process.env.ADMIN_EMAIL;
+
+  return isDev || isAdmin;
+};
+
 export const adminPage = async (req, res) => {
   try {
-    if (req.user && req.user.email === process.env.ADMIN_EMAIL) {
+    if (isAuthorized(req)) {
+      // Use the helper
       const books = await db.query("SELECT * FROM books ORDER BY id ASC");
       const notes = await db.query("SELECT * FROM notes ORDER BY book_id ASC");
-      // console.log(notes.rows);
       res.render("admin.ejs", {
         books: books.rows,
         notes: notes.rows,
-      }); // or render an admin page
+      });
     } else {
       res.redirect("/");
     }
@@ -22,8 +32,8 @@ export const adminPage = async (req, res) => {
 };
 
 export const createBook = async (req, res) => {
-  if (req.isAuthenticated()) {
-    // console.log(req.body);
+  if (isAuthorized(req)) {
+    // Use the helper
     const newBook = req.body;
     try {
       await db.query(
@@ -47,7 +57,7 @@ export const createBook = async (req, res) => {
 };
 
 export const updateBook = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     // console.log(req.body);
     const updatedValues = req.body;
     try {
@@ -75,7 +85,7 @@ export const updateBook = async (req, res) => {
 };
 
 export const deleteBook = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     // console.log(req.params.id);
     const bookId = req.params.id;
     try {
@@ -91,7 +101,7 @@ export const deleteBook = async (req, res) => {
 };
 
 export const editNotePage = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     // console.log(req.params.id);
     const { id } = req.params;
     try {
@@ -119,7 +129,7 @@ export const editNotePage = async (req, res) => {
 };
 
 export const createNote = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     try {
       // console.log(req.body);
       const { book_id, content } = req.body;
@@ -138,7 +148,7 @@ export const createNote = async (req, res) => {
 };
 
 export const updateNote = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     try {
       const { id, note, book_id } = req.body;
       // console.log(id, note);
@@ -154,7 +164,7 @@ export const updateNote = async (req, res) => {
 };
 
 export const deleteNote = async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (isAuthorized(req)) {
     try {
       // console.log(req.body);
       const { book_id, id } = req.body;
