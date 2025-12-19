@@ -16,6 +16,8 @@ import commentRoutes from "./routes/comment.route.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.set("trust proxy", 1);
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
