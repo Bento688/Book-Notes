@@ -1,4 +1,4 @@
--- 1. Enable UUID extension (Required for user IDs)
+-- 1. Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 2. Create Users Table
@@ -18,15 +18,15 @@ CREATE TABLE books (
   description TEXT,
   isbn VARCHAR(20),
   personal_rating DECIMAL(3,1),
-  author VARCHAR(100)
+  author_name VARCHAR(100)
 );
 
--- 4. Create Notes Table
+-- 4. Create Notes Table (With display_order)
 CREATE TABLE notes (
   id SERIAL PRIMARY KEY,
   notes TEXT,
   book_id INT REFERENCES books(id) ON DELETE CASCADE,
-  display_order INTEGER
+  display_order INTEGER DEFAULT 0
 );
 
 -- 5. Create Comments Table
@@ -37,16 +37,11 @@ CREATE TABLE comments (
   book_id INT REFERENCES books(id) ON DELETE CASCADE
 );
 
+-- 6. Create Session Table (Required for login)
 CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",
   "sess" json NOT NULL,
   "expire" timestamp(6) NOT NULL
 );
-
-ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid");
-
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
-
-
--- Covers search
--- https://covers.openlibrary.org/b/isbn/<isbn>-M.jpg?default=false

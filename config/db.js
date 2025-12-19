@@ -4,29 +4,20 @@ dotenv.config();
 
 const { Pool } = pg;
 
-const isProduction = process.env.NODE_ENV === "production";
+const dbConfig = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+};
 
-const connectionString = process.env.DATABASE_URL;
+// If running in Cloud Run (socket connection), use the socket
+if (process.env.INSTANCE_CONNECTION_NAME) {
+  dbConfig.host = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
+} else {
+  // Local development fallback
+  dbConfig.host = process.env.DB_HOST || "localhost";
+  dbConfig.port = process.env.DB_PORT || 5432;
+}
 
-//Connect DB
-
-const db = new Pool(
-  isProduction
-    ? {
-        connectionString,
-        ssl: { rejectUnauthorized: false },
-      }
-    : {
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        database: process.env.DB,
-        password: process.env.DB_PASSWORD,
-        port: parseInt(process.env.DB_PORT),
-      }
-);
-
-db.connect()
-  .then(() => console.log("✅ Connected to database"))
-  .catch((err) => console.error("❌ Database connection error:", err.stack));
-
+const db = new Pool(dbConfig);
 export default db;
