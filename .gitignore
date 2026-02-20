@@ -2,3 +2,4 @@
 .prettierignore
 node_modules
 .DS_Store
+sqlbackup.sql
